@@ -23,7 +23,9 @@ __global__ void gpu_matrix_mult(int *a,int *b, int *c, int m, int n, int k)
 
 int main(int argc, char const *argv[])
 {
-    int m = n = k = 200;
+    int m = 100;
+    int n = 100;
+    int k = 100;
     /* Fixed seed for illustration */
     srand(3333);
     //printf("please type in m n and k\n");
@@ -50,7 +52,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    float gpu_elapsed_time_ms, cpu_elapsed_time_ms;
+    float gpu_elapsed_time_ms;
 
     // some events to count the execution time
     cudaEvent_t start, stop;
@@ -79,7 +81,7 @@ int main(int argc, char const *argv[])
 
     // Transefr results from device to host 
     cudaMemcpy(h_c, d_c, sizeof(int)*m*k, cudaMemcpyDeviceToHost);
-    cudaThreadSynchronize();
+    //cudaThreadSynchronize();
     // time counting terminate
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);
